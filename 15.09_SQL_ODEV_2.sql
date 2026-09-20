@@ -44,11 +44,11 @@ INSERT INTO uyeler (ad, yas) VALUES
 
 SELECT * FROM uyeler;
 
-INSERT INTO uyeler (ad, yas, sehir) VALUES ('Meva', 8, 'İstanbul'); --Sonuç: CHECK constraint failed: yas > 13  
+INSERT INTO uyeler (ad, yas, sehir) VALUES ('Meva', 8, 'İstanbul');
 
 SELECT * FROM odunc;
 
-INSERT INTO odunc (uye_id, kitap_id) VALUES (99, 1); -- Sonuç: FOREIGN KEY constraint failed
+INSERT INTO odunc (uye_id, kitap_id) VALUES (99, 1);
 
 ALTER TABLE odunc ADD COLUMN gun  CURRENT_TIMESTAMP;
  
@@ -100,13 +100,11 @@ JOIN uyeler u ON u.id = o.uye_id
 JOIN kitaplar k ON k.id = o.kitap_id
 WHERE u.sehir = 'Erzincan';
 
---kitap almayanlar
 SELECT u.ad AS uye, k.ad AS kitap, o.gun
 FROM uyeler u
 LEFT JOIN odunc o ON u.id = o.uye_id
 LEFT JOIN kitaplar k ON k.id = o.kitap_id;
 
---Where gruplandırmadan önce çalıştşığı için having kullandık böylelikle ilk ortalamayı aldı
 SELECT 
     u.ad AS uye,
     AVG(o.gun) AS ortalama_gun,
@@ -127,7 +125,6 @@ FROM uyeler
 GROUP BY sehir
 ORDER BY uye_sayisi DESC;
 
---Subquery ile birlikte 30 günden fazla kitap tutmuş kullanıcı isimlerini listeledik
 SELECT ad
 FROM uyeler
 WHERE id IN (
